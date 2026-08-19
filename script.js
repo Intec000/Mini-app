@@ -2,7 +2,10 @@
 const tg = window.Telegram?.WebApp;
 
 // Replace this placeholder with the production n8n webhook URL before launch.
-const N8N_WEBHOOK_URL = 'https://attach-unsoiled-elephant.ngrok-free.dev/webhook-test/pawcolor/order';
+// Remplace la ligne existante par celle-ci :
+const N8N_WEBHOOK_URL = window.location.hostname === 'localhost' 
+    ? 'https://attach-unsoiled-elephant.ngrok-free.dev/webhook-test/pawcolor/order' 
+    : process.env.N8N_WEBHOOK_URL;
 const MAX_PHOTOS = 3;
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
