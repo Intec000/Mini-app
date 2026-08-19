@@ -1,11 +1,8 @@
 /* PawColor V1.1 — Telegram Mini App */
 const tg = window.Telegram?.WebApp;
 
-// Replace this placeholder with the production n8n webhook URL before launch.
-// Remplace la ligne existante par celle-ci :
-const N8N_WEBHOOK_URL = window.location.hostname === 'localhost' 
-    ? 'https://attach-unsoiled-elephant.ngrok-free.dev/webhook-test/pawcolor/order' 
-    : process.env.N8N_WEBHOOK_URL;
+// URL corrigée et configurée pour ton webhook Ngrok
+const N8N_WEBHOOK_URL = 'https://attach-unsoiled-elephant.ngrok-free.dev/webhook-test/pawcolor/order';
 const MAX_PHOTOS = 3;
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -137,11 +134,6 @@ form.addEventListener('submit', async (event) => {
         return;
     }
 
-    if (!N8N_WEBHOOK_URL || N8N_WEBHOOK_URL.includes('VOTRE_URL')) {
-        setError('The n8n webhook is not configured yet.');
-        return;
-    }
-
     submitBtn.disabled = true;
     showLoader();
 
@@ -164,7 +156,6 @@ form.addEventListener('submit', async (event) => {
             throw new Error(`Webhook returned HTTP ${response.status}`);
         }
 
-        // Keep the success screen visible briefly so the user sees the confirmation.
         if (tg) {
             setTimeout(() => tg.close(), 1800);
         }
